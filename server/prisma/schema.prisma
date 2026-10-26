@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum InquiryStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+}
+
+model Staff {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique @db.VarChar(254)
+  passwordHash String
+  inquiries    Inquiry[]
+}
+
+model Inquiry {
+  // SQL migration additionally checks nonblank required text and at least one contact.
+  id            String        @id @default(uuid()) @db.Uuid
+  createdById   String        @db.Uuid
+  createdBy     Staff         @relation(fields: [createdById], references: [id], onDelete: Restrict)
+  customerName  String        @db.VarChar(120)
+  email         String?       @db.VarChar(254)
+  phone         String?       @db.VarChar(40)
+  subject       String        @db.VarChar(200)
+  description   String        @db.VarChar(5000)
+  status        InquiryStatus @default(NEW)
+  submissionKey String        @db.Uuid
+  createdAt     DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime      @updatedAt @db.Timestamptz(3)
+
+  @@unique([createdById, submissionKey])
+  @@index([createdById, createdAt])
+}
+
+// connect-pg-simple owns serialization and expiry; Prisma tracks its DDL.
+model Session {
+  sid    String   @id(map: "session_pkey") @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+  @@map("session")
+}

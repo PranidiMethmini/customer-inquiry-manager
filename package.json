@@ -1,0 +1,23 @@
+{
+  "name": "customer-inquiry-manager",
+  "private": true,
+  "workspaces": ["client", "server"],
+  "engines": { "node": ">=22.16.0 <23", "npm": ">=10" },
+  "scripts": {
+    "dev": "concurrently -k -n client,server \"npm run dev -w client\" \"npm run dev -w server\"",
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "db:generate": "npm run db:generate -w server",
+    "db:validate": "npm run db:validate -w server",
+    "db:migrate": "npm run db:migrate -w server --",
+    "db:deploy": "npm run db:deploy -w server",
+    "db:status": "npm run db:status -w server",
+    "db:seed": "npm run db:seed -w server",
+    "db:verify": "npm run db:verify -w server",
+    "test:server": "npm run test -w server",
+    "test:client": "npm run test -w client",
+    "test:browser": "npm run test:browser -w client",
+    "test": "npm run test:server && npm run test:client"
+  },
+  "devDependencies": { "concurrently": "^9.2.0" }
+}
