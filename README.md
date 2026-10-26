@@ -114,10 +114,6 @@ Builds generate both `dist/` directories. Start the built API with
 `npm run start -w server`; `npm run preview -w client` previews the frontend.
 Production routing and HTTPS requirements are in the technical notes.
 
-## Demo video
-
-[Demo video](https://drive.google.com/file/d/1372Kj7zLSg6nFzHwHU4pQnepA8DyOb_9/view?usp=sharing)
-
 ## Limitations and submission
 
 This small assessment uses unpaginated lists and a per-process login limiter.

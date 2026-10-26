@@ -130,8 +130,7 @@ Further failure-test gaps are listed in [DECISIONS.md](../DECISIONS.md#prioritiz
 There is no configured lint script. Prisma validation/generation do not prove
 database connectivity; migration status, seeds and integration tests do.
 
-The submission demo recording is complete and uploaded; see the
-[Demo video](../README.md#demo-video). Do not show `.env` or secrets.
+The submission demo recording is complete and uploaded. Do not show `.env` or secrets.
 
 ## Source map
 
